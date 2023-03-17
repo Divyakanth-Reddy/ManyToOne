@@ -23,7 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping({"/api"})
 public class CommentController {
     @Autowired
-    private TutorialRepo tutorialRepo;
+    private TutorialRepo tutorialRepo; // the private keyword ensures that this instance is  accessible
+    // within the CommentController class and cannot be modified or accessed from outside of it.
     @Autowired
     private CommentRepo commentRepo;
 

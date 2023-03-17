@@ -33,7 +33,7 @@ public class TutorialController {
         List<Tutorial> tutorials = new ArrayList<Tutorial>();
 
         if (title == null)
-            tutorialRepo.findAll().forEach(tutorials::add); // tutorials is an ArrayList object to which we are adding each element returned by the findAll() method of tutorialRepository
+            tutorialRepo.findAll().forEach(tutorials::add); // tutorials is an ArrayList object to which we are adding each element returned by the findAll() method of tutorialRepo .
         else
             tutorialRepo.findByTitleContaining(title).forEach(tutorials::add);
 
