@@ -24,20 +24,12 @@ public class Comment {
             generator = "comment_generator"
     )
     private Long id;
-    @Lob
+    @Lob // when string exceeds the max size ( 65k  bytes ) , then this annotation will be helpful to map Large Objects
     private String content;
-    @ManyToOne(
-            fetch = FetchType.LAZY,
-            optional = false
-    )
-    @JoinColumn(
-            name = "tutorial_id",
-            nullable = false
-    )
-    @OnDelete(
-            action = OnDeleteAction.CASCADE
-    )
-    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY, optional = false) //
+    @JoinColumn(name = "tutorial_id", nullable = false) // name of the foreign key column and its value cannot be null
+    @OnDelete(action = OnDeleteAction.CASCADE) // when a tutorial is deleted then the corresponding comments of that tutorialId will be deleted
+    @JsonIgnore // this annotation is used to avoid circular reference , when the object is converted to JSON this field will not be included in the output .
     private Tutorial tutorial;
 
     public Comment() {

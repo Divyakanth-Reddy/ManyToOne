@@ -26,15 +26,14 @@ public class TutorialController {
     @Autowired
     TutorialRepo tutorialRepo;
 
-    public TutorialController() {
-    }
+    public TutorialController() {}
 
-    @GetMapping("/tutorials")
+    @GetMapping("/tutorials")  // to get all the tutorials from the table
     public ResponseEntity<List<Tutorial>> getAllTutorials(@RequestParam(required = false) String title) {
         List<Tutorial> tutorials = new ArrayList<Tutorial>();
 
         if (title == null)
-            tutorialRepo.findAll().forEach(tutorials::add);
+            tutorialRepo.findAll().forEach(tutorials::add); // tutorials is an ArrayList object to which we are adding each element returned by the findAll() method of tutorialRepository
         else
             tutorialRepo.findByTitleContaining(title).forEach(tutorials::add);
 
@@ -42,10 +41,10 @@ public class TutorialController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
-        return new ResponseEntity<>(tutorials, HttpStatus.OK);
+        return new ResponseEntity<>(tutorials, HttpStatus.OK); // here the tutorials is returned .
     }
 
-    @GetMapping("/tutorials/{id}") // returns based on id
+    @GetMapping("/tutorials/{id}") // returns the tutorial based on id
     public ResponseEntity <Tutorial> getTutorialById(@PathVariable long id){ // this is how we get the id using path param which is path variable
         Optional<Tutorial> tutorial = tutorialRepo.findById(id) ;
         if (tutorial.isPresent()) {
@@ -56,13 +55,13 @@ public class TutorialController {
         }
     }
 
-    @PostMapping({"/tutorials"})
+    @PostMapping({"/tutorials"}) // to add tutorial
     public ResponseEntity<Tutorial> createTutorial(@RequestBody Tutorial tutorial) {
         Tutorial _tutorial = (Tutorial)this.tutorialRepo.save(new Tutorial(tutorial.getTitle(), tutorial.getDescription(), true));
         return new ResponseEntity<>(_tutorial, HttpStatus.CREATED);
     }
 
-    @PutMapping({"/tutorials/{id}"})
+    @PutMapping({"/tutorials/{id}"}) // to update tutorial with the id
     public ResponseEntity<Tutorial> updateTutorial(@PathVariable("id") long id, @RequestBody Tutorial tutorial) {
         Optional<Tutorial> optionalTutorial = this.tutorialRepo.findById(id);
         if (optionalTutorial.isPresent()) {
@@ -76,19 +75,19 @@ public class TutorialController {
         }
     }
 
-    @DeleteMapping({"/tutorials/{id}"})
+    @DeleteMapping({"/tutorials/{id}"}) // to delete to the tutorial with id
     public ResponseEntity<HttpStatus> deleteTutorial(@PathVariable("id") long id) {
         this.tutorialRepo.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping({"/tutorials"})
+    @DeleteMapping({"/tutorials"}) // to delete all the tutorials from the table (tutorials)
     public ResponseEntity<HttpStatus> deleteAllTutorials() {
         this.tutorialRepo.deleteAll();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping({"/tutorials/published"})
+    @GetMapping({"/tutorials/published"}) // to get the tutorials which have published attribute value as one (True)
     public ResponseEntity<List<Tutorial>> findByPublished() {
         List<Tutorial> tutorials = this.tutorialRepo.findByPublished(true);
         return tutorials.isEmpty() ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(tutorials, HttpStatus.OK);

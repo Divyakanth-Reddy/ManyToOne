@@ -30,7 +30,7 @@ public class CommentController {
     public CommentController() {
     }
 
-    @GetMapping({"/tutorials/{tutorialId}/comments"})
+    @GetMapping({"/tutorials/{tutorialId}/comments"}) // to get all the comments of the tutorial with tutorialID
     public ResponseEntity<List<Comment>> getAllCommentsByTutorialId(@PathVariable("tutorialId") Long tutorialId) {
         Optional<Tutorial> tutorial = this.tutorialRepo.findById(tutorialId);
         if (tutorial.isPresent()) {
@@ -41,7 +41,7 @@ public class CommentController {
         }
     }
 
-    @GetMapping("/comments/{id}")
+    @GetMapping("/comments/{id}") // to get the comments with id given
     public ResponseEntity<Comment> getCommentsByTutorialId(@PathVariable(value = "id") Long id) {
         Optional<Comment> comment = commentRepo.findById(id);
         if (comment.isPresent()) {
@@ -51,7 +51,7 @@ public class CommentController {
         }
     }
 
-    @PostMapping({"/tutorials/{tutorialId}/comments"})
+    @PostMapping({"/tutorials/{tutorialId}/comments"}) // to add the comment to the tutorial with the tutoriald
     public ResponseEntity<Comment> createComment(@PathVariable("tutorialId") Long tutorialId, @RequestBody Comment commentRequest) {
         Optional<Tutorial> tutorial = this.tutorialRepo.findById(tutorialId);
         if (tutorial.isPresent()) {
@@ -64,7 +64,7 @@ public class CommentController {
     }
 
 
-    @PutMapping("/comments/{id}")
+    @PutMapping("/comments/{id}") // to update the comment with id
     public ResponseEntity<Comment> updateComment(@PathVariable("id") long id, @RequestBody Comment commentRequest) {
         Optional<Comment> optionalComment = commentRepo.findById(id);
         if (optionalComment.isPresent()) {
@@ -78,13 +78,13 @@ public class CommentController {
 
 
 
-    @DeleteMapping({"/comments/{id}"})
+    @DeleteMapping({"/comments/{id}"}) // to delete the comment with id
     public ResponseEntity<HttpStatus> deleteComment(@PathVariable("id") long id) {
         this.commentRepo.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping({"/tutorials/{tutorialId}/comments"})
+    @DeleteMapping({"/tutorials/{tutorialId}/comments"}) // to delete all the comments from tutorial with tutorialId
     public ResponseEntity<List<Comment>> deleteAllCommentsOfTutorial(@PathVariable("tutorialId") Long tutorialId) {
         Optional<Tutorial> tutorial = this.tutorialRepo.findById(tutorialId);
         if (tutorial.isPresent()) {
