@@ -8,29 +8,22 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(
-        name = "tutorials"
-)
+@Table(name = "tutorials")
 public class Tutorial {
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "tutorial_generator"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(
-            name = "title"
-    )
+    @Column(name = "title")
     private String title;
-    @Column(
-            name = "description"
-    )
+    @Column(name = "description")
     private String description;
-    @Column(
-            name = "published"
-    )
+    @Column(name = "published")
     private boolean published;
 
+    // this is to create a OneToMany bidirectional .
+    // @OneToMany(mappedBy = "tutorial" )
+    // private List<Comment> comments  ;
+    // also create getter and setter for this
     public Tutorial() {
     }
 

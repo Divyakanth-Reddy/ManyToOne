@@ -19,14 +19,11 @@ import org.hibernate.annotations.OnDeleteAction;
 )
 public class Comment {
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "comment_generator"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Lob // when string exceeds the max size ( 65k  bytes ) , then this annotation will be helpful to map Large Objects
     private String content;
-    @ManyToOne(fetch = FetchType.LAZY, optional = false) //
+    @ManyToOne(fetch = FetchType.LAZY, optional = false) // optional= false indicates that each Comment instance belongs to exactly one Tutorial instance .
     @JoinColumn(name = "tutorial_id", nullable = false) // name of the foreign key column and its value cannot be null
     @OnDelete(action = OnDeleteAction.CASCADE) // when a tutorial is deleted then the corresponding comments of that tutorialId will be deleted
     @JsonIgnore // this annotation is used to avoid circular reference , when the object is converted to JSON this field will not be included in the output .
