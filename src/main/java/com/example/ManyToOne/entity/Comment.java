@@ -21,7 +21,8 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Lob // ( here it is unnecessary ) when string exceeds the max size ( 65k  bytes ) , then this annotation will be helpful to map Large Objects
+
+    // @Lob  ( here it is unnecessary ) when string exceeds the max size ( 65k  bytes ) , then this annotation will be helpful to map Large Objects
     private String content;
 
     // it is better to use @ManyToOne over @OneToMany for Unidirectional to save storage and other reasons .

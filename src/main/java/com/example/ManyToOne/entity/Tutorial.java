@@ -7,6 +7,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import java.util.List;
+
 @Entity
 @Table(name = "tutorials")
 public class Tutorial {
@@ -22,10 +24,20 @@ public class Tutorial {
 
     // this is to create a OneToMany bidirectional .
     // @OneToMany(mappedBy = "tutorial" )
-    // private List<Comment> comments  ;
-    // also create getter and setter for this
+    //   private List<Comment> comments  ;
+    // uncomment getter and setter for this .
     public Tutorial() {
     }
+
+// uncomment this when applying Bi Directional     
+
+//    public List<Comment> getComments() {
+//        return comments;
+//    }
+//
+//    public void setComments(List<Comment> comments) {
+//        this.comments = comments;
+//    }
 
     public Tutorial(String title, String description, boolean published) {
         this.title = title;
