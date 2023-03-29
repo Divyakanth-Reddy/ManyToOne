@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping({"/api"})
 public class TutorialController {
     @Autowired
-    TutorialRepo tutorialRepo;
+    private TutorialRepo tutorialRepo;
 
     public TutorialController() {}
 
@@ -57,7 +57,7 @@ public class TutorialController {
 
     @PostMapping({"/tutorials"}) // to add tutorial
     public ResponseEntity<Tutorial> createTutorial(@RequestBody Tutorial tutorial) {
-        Tutorial _tutorial = (Tutorial)this.tutorialRepo.save(new Tutorial(tutorial.getTitle(), tutorial.getDescription(), true));
+        Tutorial _tutorial = (Tutorial)this.tutorialRepo.save(tutorial);
         return new ResponseEntity<>(_tutorial, HttpStatus.CREATED);
     }
 
